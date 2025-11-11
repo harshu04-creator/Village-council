@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ग्राम परिषद अभियान | Village Council Campaign</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            width: 100%;
+        }
+
+        /* Landing Page - Poster Section */
+        .poster-section {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            animation: fadeIn 0.6s ease-in;
+        }
+
+        .poster-container {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto 30px;
+            border: 5px solid #667eea;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .poster-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .poster-placeholder {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 100px 20px;
+            font-size: 18px;
+            color: #555;
+        }
+
+        .poster-section h1 {
+            font-size: 32px;
+            color: #333;
+            margin-bottom: 15px;
+            line-height: 1.4;
+        }
+
+        .poster-section p {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .enter-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 18px 50px;
+            font-size: 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .enter-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(102, 126, 234, 0.6);
+        }
+
+        /* Problem Form Section */
+        .form-section {
+            display: none;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: slideIn 0.5s ease-out;
+        }
+
+        .form-section.active {
+            display: block;
+        }
+
+        .form-header {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .form-header h2 {
+            font-size: 28px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .form-header p {
+            font-size: 16px;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        .bilingual-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #444;
+            font-size: 15px;
+        }
+
+        .hindi {
+            font-size: 16px;
+            margin-right: 8px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        input:focus,
+        textarea:focus,
+        select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 16px;
+            font-size: 18px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        /* Thank You / About Section */
+        .about-section {
+            display: none;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 0.6s ease-in;
+        }
+
+        .about-section.active {
+            display: block;
+        }
+
+        .about-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .about-header h2 {
+            font-size: 28px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .success-icon {
+            font-size: 60px;
+            color: #4CAF50;
+            margin-bottom: 20px;
+        }
+
+        .about-content {
+            margin-top: 30px;
+        }
+
+        .about-content h3 {
+            font-size: 22px;
+            color: #667eea;
+            margin-bottom: 15px;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        .about-content p,
+        .about-content ul {
+            font-size: 16px;
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .about-content ul {
+            padding-left: 25px;
+        }
+
+        .about-content li {
+            margin-bottom: 12px;
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 30px;
+            background: #667eea;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .poster-section,
+            .form-section,
+            .about-section {
+                padding: 25px;
+            }
+
+            .poster-section h1 {
+                font-size: 24px;
+            }
+
+            .form-header h2,
+            .about-header h2 {
+                font-size: 22px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Landing Page with Poster -->
+        <div class="poster-section" id="posterSection">
+            <div class="poster-container">
+                <!-- Replace the src with your actual poster image path -->
+                <img src="poster.jpg" alt="Political Party Poster" onerror="this.parentElement.innerHTML='<div class=poster-placeholder><strong>कृपया अपना पोस्टर यहाँ रखें<br>Please place your poster here<br><br>Save your poster as poster.jpg in the same folder</strong></div>'">
+            </div>
+            <h1>
+                <span class="hindi">आपकी आवाज़, हमारी प्राथमिकता</span><br>
+                Your Voice, Our Priority
+            </h1>
+            <p>
+                <span class="hindi">हम जनता की सेवा और आपकी समस्याओं के समाधान के लिए प्रतिबद्ध हैं।</span><br>
+                We are committed to serving the people and addressing your concerns.
+            </p>
+            <button class="enter-btn" onclick="showProblemForm()">
+                समस्या दर्ज करें | Submit Problem
+            </button>
+        </div>
+
+        <!-- Problem Submission Form -->
+        <div class="form-section" id="formSection">
+            <div class="form-header">
+                <h2>
+                    <span class="hindi">अपनी समस्या साझा करें</span><br>
+                    Share Your Problem
+                </h2>
+                <p>
+                    <span class="hindi">कृपया अपना विवरण भरें और अपनी समस्या बताएं। हम समाधान खोजने की दिशा में काम करेंगे।</span><br>
+                    Please fill in your details and describe your problem. We will work towards finding solutions.
+                </p>
+            </div>
+
+            <form id="problemForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+                <div class="form-group">
+                    <label class="bilingual-label">
+                        <span class="hindi">नाम | Name</span> <span style="color: red;">*</span>
+                    </label>
+                    <input type="text" name="name" placeholder="अपना पूरा नाम लिखें | Enter your full name" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="bilingual-label">
+                        <span class="hindi">गांव का नाम | Village Name</span> <span style="color: red;">*</span>
+                    </label>
+                    <input type="text" name="village" placeholder="अपने गांव का नाम लिखें | Enter your village name" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="bilingual-label">
+                        <span class="hindi">मोबाइल नंबर | Mobile Number</span> <span style="color: red;">*</span>
+                    </label>
+                    <input type="tel" name="mobile" placeholder="10 अंकों का मोबाइल नंबर | 10-digit mobile number" pattern="[0-9]{10}" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="bilingual-label">
+                        <span class="hindi">ईमेल | Email</span>
+                    </label>
+                    <input type="email" name="email" placeholder="आपका ईमेल (वैकल्पिक) | Your email (optional)">
+                </div>
+
+                <div class="form-group">
+                    <label class="bilingual-label">
+                        <span class="hindi">समस्या का प्रकार | Problem Category</span> <span style="color: red;">*</span>
+                    </label>
+                    <select name="problem_category" required>
+                        <option value="">चुनें | Select</option>
+                        <option value="road">सड़क | Road</option>
+                        <option value="water">पानी | Water</option>
+                        <option value="electricity">बिजली | Electricity</option>
+                        <option value="sanitation">स्वच्छता | Sanitation</option>
+                        <option value="education">शिक्षा | Education</option>
+                        <option value="health">स्वास्थ्य | Health</option>
+                        <option value="employment">रोजगार | Employment</option>
+                        <option value="other">अन्य | Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="bilingual-label">
+                        <span class="hindi">समस्या का विवरण | Problem Description</span> <span style="color: red;">*</span>
+                    </label>
+                    <textarea name="problem_description" placeholder="कृपया अपनी समस्या विस्तार से बताएं | Please describe your problem in detail" required></textarea>
+                </div>
+
+                <button type="submit" class="submit-btn">
+                    जमा करें | Submit
+                </button>
+            </form>
+        </div>
+
+        <!-- About Section / Thank You Page -->
+        <div class="about-section" id="aboutSection">
+            <div class="about-header">
+                <div class="success-icon">✓</div>
+                <h2>
+                    <span class="hindi">धन्यवाद!</span><br>
+                    Thank You!
+                </h2>
+                <p style="font-size: 16px; color: #666;">
+                    <span class="hindi">आपकी समस्या सफलतापूर्वक दर्ज की गई है। हम जल्द ही आपसे संपर्क करेंगे।</span><br>
+                    Your problem has been successfully submitted. We will contact you soon.
+                </p>
+            </div>
+
+            <div class="about-content">
+                <h3>
+                    <span class="hindi">हमारे ग्राम परिषद के बारे में</span> | About Our Village Council
+                </h3>
+                <p>
+                    <span class="hindi">
+                        हमारी ग्राम परिषद गांव के विकास और हर नागरिक की भलाई के लिए प्रतिबद्ध है। हम जनता के हित में कार्य करते हैं और पारदर्शिता के साथ शासन करते हैं।
+                    </span>
+                </p>
+                <p>
+                    Our Village Council is committed to the development of the village and the welfare of every citizen. We work in the interest of the people and govern with transparency.
+                </p>
+
+                <h3 style="margin-top: 30px;">
+                    <span class="hindi">हमारे मुख्य उद्देश्य</span> | Our Main Objectives
+                </h3>
+                <ul>
+                    <li><strong class="hindi">बुनियादी सुविधाएं:</strong> सड़क, पानी, बिजली की व्यवस्था में सुधार | <strong>Basic Facilities:</strong> Improvement in roads, water, and electricity</li>
+                    <li><strong class="hindi">शिक्षा:</strong> गुणवत्तापूर्ण शिक्षा की पहुंच | <strong>Education:</strong> Access to quality education</li>
+                    <li><strong class="hindi">स्वास्थ्य:</strong> बेहतर स्वास्थ्य सुविधाएं | <strong>Healthcare:</strong> Better healthcare facilities</li>
+                    <li><strong class="hindi">रोजगार:</strong> युवाओं के लिए रोजगार के अवसर | <strong>Employment:</strong> Job opportunities for youth</li>
+                    <li><strong class="hindi">महिला सशक्तिकरण:</strong> महिलाओं के विकास के लिए योजनाएं | <strong>Women Empowerment:</strong> Schemes for women's development</li>
+                    <li><strong class="hindi">पर्यावरण संरक्षण:</strong> स्वच्छ और हरित गांव | <strong>Environment:</strong> Clean and green village</li>
+                </ul>
+
+                <h3 style="margin-top: 30px;">
+                    <span class="hindi">हमारी प्रतिबद्धता</span> | Our Commitment
+                </h3>
+                <p>
+                    <span class="hindi">
+                        हम वादा करते हैं कि आपकी हर समस्या को गंभीरता से सुना जाएगा और उसका समाधान खोजा जाएगा। आपका विश्वास हमारी ताकत है।
+                    </span>
+                </p>
+                <p>
+                    We promise that every problem will be heard seriously and solutions will be found. Your trust is our strength.
+                </p>
+
+                <div style="text-align: center; margin-top: 30px;">
+                    <a href="#" class="back-btn" onclick="resetForm()">
+                        वापस जाएं | Go Back
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showProblemForm() {
+            document.getElementById('posterSection').style.display = 'none';
+            document.getElementById('formSection').classList.add('active');
+        }
+
+        // Handle form submission
+        document.getElementById('problemForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Submit form data using Fetch API
+            fetch(this.action, {
+                method: 'POST',
+                body: new FormData(this),
+                headers: {
+                    'Accept': 'application/json'
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    // Show thank you / about section
+                    document.getElementById('formSection').classList.remove('active');
+                    document.getElementById('aboutSection').classList.add('active');
+                } else {
+                    alert('समस्या दर्ज करने में त्रुटि। कृपया पुनः प्रयास करें। | Error submitting problem. Please try again.');
+                }
+            })
+            .catch(error => {
+                alert('समस्या दर्ज करने में त्रुटि। कृपया पुनः प्रयास करें। | Error submitting problem. Please try again.');
+            });
+        });
+
+        function resetForm() {
+            document.getElementById('aboutSection').classList.remove('active');
+            document.getElementById('posterSection').style.display = 'block';
+            document.getElementById('problemForm').reset();
+        }
+    </script>
+</body>
+</html>
